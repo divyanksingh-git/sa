@@ -1,0 +1,22 @@
+{% extends 'base.html' %}
+
+{% block head %}
+         <title>Text Input for ML Model</title>
+         
+{% endblock %}
+
+{% block body %}
+<h1>Text Input for ML Model</h1>
+    <form action="/" method="post">
+      <label for="input_text">Enter text:</label>
+      <input type="text" name="input" id="input" rows="4" cols="50" required></input>
+      <br>
+      <button type="submit">Submit</button>
+    </form>
+
+    <div id="result"></div>
+
+    <script src="{{ url_for('static',filename='js/temp.js') }}"></script>
+    <script src="{{ url_for('static',filename='js/home.js') }}"></script>
+    
+{% endblock %}
