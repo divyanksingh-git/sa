@@ -63,7 +63,6 @@ file.write(f'var result = ""')
 def index():
     if request.method == "POST":
         data = request.form.get("input")
-        result = data
         data = cleaning_stopwords(data)
         data = cleaning_repeating_char(data)
         data = cleaning_URLs(data)
@@ -72,15 +71,18 @@ def index():
         data = stemming_on_text(data)
         data = lemmatizer_on_text(data)
 
-
-
-        vectoriser = TfidfVectorizer(ngram_range=(1,2), max_features=500000)
-        vectoriser=vectoriser.fit(data)
+        with open('static/models/vectoriser.pkl', 'rb') as f:
+            vectoriser = pickle.load(f)
 
 
         data  = vectoriser.transform(data)
 
-        print(model.predict(data))
+        temp = model.predict(data)[0]
+
+        if temp ==0:
+            result = "BAD"
+        else:
+            result="GOOD"
 
         
         file = open("static/js/temp.js",'w')
