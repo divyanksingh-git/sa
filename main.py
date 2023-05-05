@@ -70,6 +70,8 @@ def index():
         data = data.split(" ")
         data = stemming_on_text(data)
         data = lemmatizer_on_text(data)
+        data = " ".join(data)
+        data =[data]
 
         with open('static/models/vectoriser.pkl', 'rb') as f:
             vectoriser = pickle.load(f)
@@ -79,7 +81,7 @@ def index():
 
         temp = model.predict(data)[0]
 
-        if temp ==0:
+        if temp==0:
             result = "BAD"
         else:
             result="GOOD"
